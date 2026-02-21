@@ -15,8 +15,7 @@ export default class VSCodeSearchProvider<
   T extends Extension & {
     _settings: Gio.Settings | null;
   },
-> implements AppSearchProvider
-{
+> implements AppSearchProvider {
   workspaces: Record<string, { name: string; path: string }> = {};
   extension: T;
   app: Shell.App | undefined;
@@ -27,7 +26,7 @@ export default class VSCodeSearchProvider<
   constructor(extension: T) {
     this.extension = extension;
     this._setApp();
-    this.appInfo = this.app?.appInfo;
+    this.appInfo = this.app?.app_info as unknown as Gio.DesktopAppInfo;
     this._setWorkspaces();
   }
 
@@ -108,17 +107,31 @@ export default class VSCodeSearchProvider<
       `${Glib.get_home_dir()}/.var/app`,
     ];
 
-    const appDirs = [
-      // XDG_CONFIG_DIRS
-      "Code",
-      "Code - Insiders",
-      "VSCodium",
-      "VSCodium - Insiders",
+    const enableVsCode =
+      this.extension?._settings?.get_boolean("enable-vscode") ?? true;
+    const enableVsCodium =
+      this.extension?._settings?.get_boolean("enable-vscodium") ?? true;
+    const enableAntigravity =
+      this.extension?._settings?.get_boolean("enable-antigravity") ?? true;
 
-      // Flatpak
-      "com.vscodium.codium/config/VSCodium",
-      "com.vscodium.codium-insiders/config/VSCodium - Insiders",
-    ];
+    const appDirs: string[] = [];
+
+    if (enableVsCode) {
+      appDirs.push("Code", "Code - Insiders");
+    }
+
+    if (enableVsCodium) {
+      appDirs.push(
+        "VSCodium",
+        "VSCodium - Insiders",
+        "com.vscodium.codium/config/VSCodium",
+        "com.vscodium.codium-insiders/config/VSCodium - Insiders",
+      );
+    }
+
+    if (enableAntigravity) {
+      appDirs.push("Antigravity");
+    }
 
     for (const configDir of configDirs) {
       for (const appDir of appDirs) {
@@ -137,15 +150,33 @@ export default class VSCodeSearchProvider<
   }
 
   _setApp() {
-    this.app = [
-      "code",
-      "code-insiders",
-      "code-oss",
-      "codium",
-      "codium-insiders",
-      "com.vscodium.codium",
-      "com.vscodium.codium-insiders",
-    ]
+    const enableVsCode =
+      this.extension?._settings?.get_boolean("enable-vscode") ?? true;
+    const enableVsCodium =
+      this.extension?._settings?.get_boolean("enable-vscodium") ?? true;
+    const enableAntigravity =
+      this.extension?._settings?.get_boolean("enable-antigravity") ?? true;
+
+    const appIds: string[] = [];
+
+    if (enableVsCode) {
+      appIds.push("code", "code-insiders", "code-oss");
+    }
+
+    if (enableVsCodium) {
+      appIds.push(
+        "codium",
+        "codium-insiders",
+        "com.vscodium.codium",
+        "com.vscodium.codium-insiders",
+      );
+    }
+
+    if (enableAntigravity) {
+      appIds.push("antigravity");
+    }
+
+    this.app = appIds
       .map((id) => Shell.AppSystem.get_default().lookup_app(id + ".desktop"))
       .find((app) => Boolean(app));
 
@@ -168,7 +199,8 @@ export default class VSCodeSearchProvider<
           this.app?.app_info.get_executable() + " --" + type + "-uri " + path;
         Glib.spawn_command_line_async(command);
       } else {
-        this.app?.app_info.launch([Gio.file_new_for_path(path)], null);
+        const app_info = this.app?.app_info as unknown as Gio.DesktopAppInfo;
+        app_info.launch([Gio.file_new_for_path(path)], null);
       }
     }
   }

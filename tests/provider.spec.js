@@ -38,7 +38,13 @@ test("should decode uri", () => {
   test(`should add suffix for ${name}`, async () => {
     const provider = new Provider({
       _settings: {
-        get_boolean: (key) => key === "suffix",
+        get_boolean: (key) =>
+          [
+            "suffix",
+            "enable-vscode",
+            "enable-vscodium",
+            "enable-antigravity",
+          ].includes(key),
       },
     });
 
@@ -92,7 +98,13 @@ test("should decode uri", () => {
     // Check workspace exists when settings are enabled
     provider = new Provider({
       _settings: {
-        get_boolean: (key) => enabledSettings.includes(key),
+        get_boolean: (key) =>
+          [
+            ...enabledSettings,
+            "enable-vscode",
+            "enable-vscodium",
+            "enable-antigravity",
+          ].includes(key),
       },
     });
 
