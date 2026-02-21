@@ -1,11 +1,17 @@
 {
-  "name": "VSCode Search Provider",
-  "description": "Search for your vscode workspaces easily. Supports insiders and vscodium. This extension is not affiliated, funded, or in any way associated with Microsoft and vscode software.",
-  "uuid": "vscode-search-provider@mrmarble.github.com",
-  "url": "https://github.com/mrmarble/vscode-search-provider",
+  "name": "Universal IDE Search Provider",
+  "description": "Stop digging through menus or terminal histories. Universal IDE Search Provider integrates all your favorite code editors—including VS Code, VSCodium, Antigravity, and more—straight into your GNOME overview. One search bar, every workspace.",
+  "uuid": "universal-ide-search-provider@sahil-shefeek.github.com",
+  "url": "https://github.com/sahil-shefeek/Universal-IDE-Search-Provider",
   "donations": {
-    "github": "mrmarble"
+    "github": "sahil-shefeek"
   },
-  "shell-version": ["45", "46", "47", "48", "49"],
-  "settings-schema": "org.gnome.shell.extensions.vscode-search-provider"
+  "shell-version": [
+    "45",
+    "46",
+    "47",
+    "48",
+    "49"
+  ],
+  "settings-schema": "org.gnome.shell.extensions.universal-ide-search-provider"
 }

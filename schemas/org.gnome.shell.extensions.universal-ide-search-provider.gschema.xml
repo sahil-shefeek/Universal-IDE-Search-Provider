@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-  <schema id="org.gnome.shell.extensions.vscode-search-provider" path="/org/gnome/shell/extensions/vscode-search-provider/">
+  <schema id="org.gnome.shell.extensions.universal-ide-search-provider" path="/org/gnome/shell/extensions/universal-ide-search-provider/">
     <key name="override-results-order" type="b">
       <default>false</default>
       <summary>Boolean, whether to override the default search results order to prioritize VS Code workspaces. Requires disabling and re-enabling the extension to take effect.</summary>

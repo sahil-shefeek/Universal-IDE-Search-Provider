@@ -1,14 +1,16 @@
-# VSCode Search Provider
+# Universal IDE Search Provider
 
-![GitHub License](https://img.shields.io/github/license/mrmarble/vscode-search-provider)
-[![Lint](https://github.com/MrMarble/vscode-search-provider/actions/workflows/eslint.yml/badge.svg)](https://github.com/MrMarble/vscode-search-provider/actions/workflows/eslint.yml)
+> Find and launch any coding workspace directly from GNOME Shell.
+
+![GitHub License](https://img.shields.io/github/license/sahil-shefeek/Universal-IDE-Search-Provider)
+[![Lint](https://github.com/sahil-shefeek/Universal-IDE-Search-Provider/actions/workflows/eslint.yml/badge.svg)](https://github.com/sahil-shefeek/Universal-IDE-Search-Provider/actions/workflows/eslint.yml)
 ![GNOME Extensions download](https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Fextensions.gnome.org%2Fextension%2F6976%2Fvscode-search-provider%2F&query=%2Fhtml%2Fbody%2Fdiv%5B2%5D%2Fdiv%2Fdiv%5B2%5D%2Fdiv%5B1%5D%2Fspan%5B3%5D&logo=gnome&label=GNOME%20extensions&cacheSeconds=86400)
 
 ## Description
 
 ![screenshot.png](screenshot.png)
 
-VSCode Search Provider Extension is a Gnome Shell Extension that integrates Visual Studio Code's search functionality into the Gnome Shell.
+Stop digging through menus or terminal histories. Universal IDE Search Provider integrates all your favorite code editors—including VS Code, VSCodium, Antigravity, and more—straight into your GNOME overview. One search bar, every workspace.
 
 ## Features
 
@@ -30,9 +32,9 @@ Navigate to the directory you want to download the source code and execute follo
 
 #### GNOME 45+
 
-    git clone https://github.com/MrMarble/vscode-search-provider.git
-    cd vscode-search-provider
-    npm install && npm run setup
+    git clone https://github.com/sahil-shefeek/Universal-IDE-Search-Provider.git
+    cd Universal-IDE-Search-Provider
+    pnpm install && pnpm setup
 
 ### Enabling the extension
 
