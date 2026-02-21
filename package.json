@@ -25,9 +25,9 @@
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
     "clean": "rm -rf dist && rm -f ${npm_package_name}.zip",
-    "pack": "pnpm clean && pnpm build && cp metadata.json dist && cp -r schemas dist && cd dist && zip ../${npm_package_name}.zip -9r .",
+    "bundle": "pnpm run clean && pnpm run build && cp metadata.json dist && cp -r schemas dist && cd dist && zip ../${npm_package_name}.zip -9r .",
     "install-extension": "gnome-extensions install ${npm_package_name}.zip --force",
-    "setup": "pnpm pack && glib-compile-schemas ./dist/schemas && pnpm install-extension",
+    "setup": "pnpm run bundle && glib-compile-schemas ./dist/schemas && pnpm run install-extension",
     "debug": "dbus-run-session -- gnome-shell --nested --wayland",
     "prepare": "simple-git-hooks",
     "test": "node --loader ./tests/mocks/loader.js --loader tsm node_modules/uvu/bin.js ./tests \\.spec\\.js$"
@@ -39,7 +39,7 @@
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged",
-    "pre-push": "npm run format"
+    "pre-push": "pnpm run format"
   },
   "lint-staged": {
     "*": "eslint --fix"
