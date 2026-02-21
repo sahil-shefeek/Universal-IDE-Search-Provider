@@ -16,27 +16,24 @@ export default class ExamplePreferences extends ExtensionPreferences {
   fillPreferencesWindow(window: Window) {
     // Create a settings object
     window._settings = this.getSettings();
-    // Create a preferences page, with a single group
-    const page = new Adw.PreferencesPage({
-      title: _("General"),
-      icon_name: "dialog-information-symbolic",
-    });
-    window.add(page);
 
-    const group = new Adw.PreferencesGroup({
-      title: _("Appearance"),
-      description: _("Configure the appearance of the extension"),
+    // --- Page 1: Search & Appearance ---
+    const page1 = new Adw.PreferencesPage({
+      title: _("Search & Appearance"),
+      icon_name: "preferences-desktop-display-symbolic",
     });
+    window.add(page1);
 
-    page.add(group);
+    const groupAppearance = new Adw.PreferencesGroup({
+      title: _("Appearance & Behavior"),
+    });
+    page1.add(groupAppearance);
 
     const overrideResultsOrder = new Adw.SwitchRow({
       title: _("Override Results Order"),
-      subtitle: _(
-        "If enabled, the extension will override the default search results order to prioritize VS Code workspaces. Will place the results directly underneath applications. Requires disabling and re-enabling the extension to take effect.",
-      ),
+      subtitle: _("Prioritize workspaces in search results. Requires restart."),
     });
-    group.add(overrideResultsOrder);
+    groupAppearance.add(overrideResultsOrder);
     window._settings.bind(
       "override-results-order",
       overrideResultsOrder,
@@ -47,10 +44,10 @@ export default class ExamplePreferences extends ExtensionPreferences {
     const showSuffix = new Adw.SwitchRow({
       title: _("Show Suffix"),
       subtitle: _(
-        "Whether to show a suffix next to the workspace name. (Remote, Codespaces...)",
+        "Show a suffix next to the workspace name (e.g., Remote, Codespaces).",
       ),
     });
-    group.add(showSuffix);
+    groupAppearance.add(showSuffix);
     window._settings.bind(
       "suffix",
       showSuffix,
@@ -58,11 +55,60 @@ export default class ExamplePreferences extends ExtensionPreferences {
       Gio.SettingsBindFlags.DEFAULT,
     );
 
+    // --- Page 2: IDEs & Workspaces ---
+    const page2 = new Adw.PreferencesPage({
+      title: _("IDEs & Workspaces"),
+      icon_name: "folder-code-symbolic",
+    });
+    window.add(page2);
+
+    const groupIdes = new Adw.PreferencesGroup({
+      title: _("Enabled IDEs"),
+    });
+    page2.add(groupIdes);
+
+    const enableVscode = new Adw.SwitchRow({
+      title: _("Visual Studio Code"),
+    });
+    groupIdes.add(enableVscode);
+    window._settings.bind(
+      "enable-vscode",
+      enableVscode,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+
+    const enableVscodium = new Adw.SwitchRow({
+      title: _("VSCodium"),
+    });
+    groupIdes.add(enableVscodium);
+    window._settings.bind(
+      "enable-vscodium",
+      enableVscodium,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+
+    const enableAntigravity = new Adw.SwitchRow({
+      title: _("Google Antigravity"),
+    });
+    groupIdes.add(enableAntigravity);
+    window._settings.bind(
+      "enable-antigravity",
+      enableAntigravity,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+
+    const groupVirtualEnvs = new Adw.PreferencesGroup({
+      title: _("Virtual Environments"),
+    });
+    page2.add(groupVirtualEnvs);
+
     const includeDevContainers = new Adw.SwitchRow({
       title: _("Include Dev Containers"),
-      subtitle: _("Whether to include dev containers in the workspace list."),
     });
-    group.add(includeDevContainers);
+    groupVirtualEnvs.add(includeDevContainers);
     window._settings.bind(
       "include-dev-containers",
       includeDevContainers,
@@ -72,9 +118,8 @@ export default class ExamplePreferences extends ExtensionPreferences {
 
     const includeCodeSpaces = new Adw.SwitchRow({
       title: _("Include Code Spaces"),
-      subtitle: _("Whether to include code spaces in the workspace list."),
     });
-    group.add(includeCodeSpaces);
+    groupVirtualEnvs.add(includeCodeSpaces);
     window._settings.bind(
       "include-code-spaces",
       includeCodeSpaces,
@@ -84,11 +129,8 @@ export default class ExamplePreferences extends ExtensionPreferences {
 
     const includeGithub = new Adw.SwitchRow({
       title: _("Include GitHub Virtual File Systems"),
-      subtitle: _(
-        "Whether to include GitHub Virtual File Systems in the workspace list.",
-      ),
     });
-    group.add(includeGithub);
+    groupVirtualEnvs.add(includeGithub);
     window._settings.bind(
       "include-github",
       includeGithub,
