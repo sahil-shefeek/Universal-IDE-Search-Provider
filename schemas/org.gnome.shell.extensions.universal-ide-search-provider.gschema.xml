@@ -21,5 +21,17 @@
       <default>true</default>
       <summary>Boolean, whether to include GitHub Virtual Files Systems in the workspace list.</summary>
     </key>
+    <key name="enable-vscode" type="b">
+      <default>true</default>
+      <summary>Boolean, whether to include VS Code workspaces in the search results.</summary>
+    </key>
+    <key name="enable-vscodium" type="b">
+      <default>true</default>
+      <summary>Boolean, whether to include VSCodium workspaces in the search results.</summary>
+    </key>
+    <key name="enable-antigravity" type="b">
+      <default>true</default>
+      <summary>Boolean, whether to include Antigravity workspaces in the search results.</summary>
+    </key>
   </schema>
 </schemalist>
